@@ -17,5 +17,6 @@ public class Main extends Application {
         Model model = new Model();
         View view = new View(model, primaryStage);
         Controller controller = new Controller(model, view);
+        view.setHelloWorldListener(controller);
     }
 }

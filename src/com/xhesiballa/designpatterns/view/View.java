@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class View {
     private Model model;
     private Stage primaryStage;
+    private HelloWorldListener helloWorldListener;
 
     public View(Model model, Stage primaryStage) {
         this.model = model;
@@ -20,6 +21,12 @@ public class View {
         this.primaryStage.setScene(new Scene(root, 480, 360));
         this.primaryStage.show();
 
-        button.setOnMouseClicked(event -> System.out.println("Hello world!"));
+        button.setOnMouseClicked(event -> {
+            if (helloWorldListener != null) helloWorldListener.sayHelloWorld();
+        });
+    }
+
+    public void setHelloWorldListener(HelloWorldListener helloWorldListener) {
+        this.helloWorldListener = helloWorldListener;
     }
 }
