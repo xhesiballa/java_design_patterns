@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Model model = new Model();
-        View view = new View(model);
+        View view = new View(model, primaryStage);
         Controller controller = new Controller(model, view);
     }
 }
