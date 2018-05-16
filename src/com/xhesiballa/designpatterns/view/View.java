@@ -1,6 +1,7 @@
 package com.xhesiballa.designpatterns.view;
 
 import com.xhesiballa.designpatterns.model.Model;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -23,6 +24,11 @@ public class View {
 
         button.setOnMouseClicked(event -> {
             if (helloWorldListener != null) helloWorldListener.sayHelloWorld();
+        });
+
+        this.primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
         });
     }
 

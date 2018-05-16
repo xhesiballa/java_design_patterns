@@ -1,5 +1,6 @@
 package com.xhesiballa.designpatterns;
 
+import com.xhesiballa.designpatterns.bootstrap.Bootstrap;
 import com.xhesiballa.designpatterns.controller.Controller;
 import com.xhesiballa.designpatterns.model.Model;
 import com.xhesiballa.designpatterns.view.View;
@@ -18,5 +19,7 @@ public class Main extends Application {
         View view = new View(model, primaryStage);
         Controller controller = new Controller(model, view);
         view.setHelloWorldListener(controller);
+
+        Bootstrap.performBootstrapping();
     }
 }
