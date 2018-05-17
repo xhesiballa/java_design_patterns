@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  * @author Xhesi Balla
  */
 public class UserDAOTest {
-    private static UserDAO userDAO = DAOFactory.getUserDAO();
+    private static UserDAO userDAO = DAOFactory.getFactory(DAOFactory.H2).getUserDAO();
 
     @BeforeClass
     public static void createSchema() {
@@ -28,7 +28,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void createUser() throws Exception {
+    public void createUser() {
         User user = new User();
         User newUser = userDAO.createUser(user);
         assertNotNull(newUser);
@@ -36,7 +36,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void getUser() throws Exception {
+    public void getUser() {
         User user = new User();
         User newUser = userDAO.createUser(user);
         User retrievedUser = userDAO.getUser(newUser.getId());
@@ -44,7 +44,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void getUsers() throws Exception {
+    public void getUsers() {
         userDAO.createUser(new User());
         userDAO.createUser(new User());
 
@@ -54,7 +54,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void updateUser() throws Exception {
+    public void updateUser() {
         User user = new User();
         user.setUserName("foo");
 
@@ -69,7 +69,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void deleteUser() throws Exception {
+    public void deleteUser() {
         User newUser = userDAO.createUser(new User());
         userDAO.deleteUser(newUser);
 
@@ -79,7 +79,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void deleteUsers() throws Exception {
+    public void deleteUsers() {
         userDAO.createUser(new User());
         userDAO.createUser(new User());
 

@@ -11,7 +11,7 @@ import com.xhesiballa.designpatterns.view.UserCreatedListener;
  */
 public class UserController implements UserCreatedListener {
     private RegisterView registerView;
-    private UserDAO userDAO = DAOFactory.getUserDAO();
+    private UserDAO userDAO = DAOFactory.getFactory(DAOFactory.H2).getUserDAO();
 
     @Override
     public void onUserCreated(User user) {
