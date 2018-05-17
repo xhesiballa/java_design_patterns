@@ -78,7 +78,10 @@ public class RegisterView {
 
     private void fireUserCreatedEvent() {
         if (userCreatedListener != null) {
-            User user = new User(-1, userTextField.getText(), emailTextField.getText(), pwBox.getText());
+            User user = new User();
+            user.setUserName(userTextField.getText());
+            user.setEmail( emailTextField.getText());
+            user.setPassword(pwBox.getText());
             userCreatedListener.onUserCreated(user);
         }
     }

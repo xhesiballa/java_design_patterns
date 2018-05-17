@@ -1,5 +1,7 @@
 package com.xhesiballa.designpatterns.model;
 
+import org.h2.tools.Server;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,6 +13,7 @@ public class Database {
 
     private static Database instance = new Database();
     private Connection connection;
+    private Server server;
 
     private Database() {
     }
@@ -30,16 +33,23 @@ public class Database {
     }
     */
 
-    public Database connect() throws SQLException {
+    private Database connect() throws SQLException {
         instance.connection = DriverManager.getConnection("jdbc:h2:mem:test", "sa", "");
+        server = Server.createTcpServer().start();
         return instance;
     }
 
     public void disconnect() throws SQLException {
         instance.connection.close();
+        instance.connection = null;
+        server.shutdown();
+        server = null;
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException{
+        if (connection == null){
+            connect();
+        }
         return connection;
     }
 }

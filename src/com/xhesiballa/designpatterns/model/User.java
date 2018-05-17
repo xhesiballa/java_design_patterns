@@ -9,6 +9,9 @@ public class User {
     private String email;
     private String password;
 
+    public User() {
+    }
+
     public User(int id, String userName, String email, String password) {
         this.id = id;
         this.userName = userName;
@@ -56,5 +59,10 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    @Override
+    protected User clone(){
+        return  new User(id, userName, email, password);
     }
 }

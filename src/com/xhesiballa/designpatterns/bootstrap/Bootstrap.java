@@ -11,10 +11,10 @@ public class Bootstrap {
 
     public static void performBootstrapping() {
         try {
-            Statement statement = Database.getInstance().connect().getConnection().createStatement();
+            Statement statement = Database.getInstance().getConnection().createStatement();
             createDatabaseSchema(statement);
             insertUsers(statement);
-            Database.getInstance().disconnect();
+//            Database.getInstance().disconnect();
         } catch (SQLException e) {
             e.printStackTrace();
         }

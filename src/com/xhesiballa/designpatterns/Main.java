@@ -2,7 +2,7 @@ package com.xhesiballa.designpatterns;
 
 import com.xhesiballa.designpatterns.bootstrap.Bootstrap;
 import com.xhesiballa.designpatterns.controller.Controller;
-import com.xhesiballa.designpatterns.controller.RegisterController;
+import com.xhesiballa.designpatterns.controller.UserController;
 import com.xhesiballa.designpatterns.model.Model;
 import com.xhesiballa.designpatterns.view.RegisterView;
 import com.xhesiballa.designpatterns.view.View;
@@ -27,9 +27,9 @@ public class Main extends Application {
         RegisterView registerView = new RegisterView(model, primaryStage);
 
         Controller controller = new Controller(model, view);
-        RegisterController registerController = new RegisterController();
+        UserController userController = new UserController();
 
         view.setHelloWorldListener(controller);
-        registerView.setUserCreatedListener(registerController);
+        registerView.setUserCreatedListener(userController);
     }
 }
