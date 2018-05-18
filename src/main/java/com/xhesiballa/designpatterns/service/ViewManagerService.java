@@ -10,11 +10,25 @@ import java.util.Set;
 import static java.lang.String.format;
 
 public class ViewManagerService {
+    private static ViewManagerService viewManagerService;
     private final Set<View> viewSet = new HashSet<>();
     private final Stage stage;
 
-    public ViewManagerService(Stage stage) {
+    private ViewManagerService(Stage stage) {
         this.stage = stage;
+    }
+
+    public static ViewManagerService initialise(Stage stage) {
+        viewManagerService = new ViewManagerService(stage);
+        return viewManagerService;
+    }
+
+    public static ViewManagerService get() {
+        if (viewManagerService != null) {
+            return viewManagerService;
+        } else {
+            throw new UnsupportedOperationException("The ViewManagerService has not been initialised!");
+        }
     }
 
     public void registerView(View view) {
@@ -29,7 +43,7 @@ public class ViewManagerService {
             stage.show();
         } else {
             throw new UnsupportedOperationException(
-                    format("View $s is not registered in the view manager.", viewClass.getName()));
+                    format("View %s is not registered in the view manager.", viewClass.getName()));
         }
     }
 }

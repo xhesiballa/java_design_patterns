@@ -28,7 +28,7 @@ public class RegisterView implements View {
     private TextField emailTextField;
     private PasswordField pwBox;
 
-    public RegisterView(Model mode, Stage primaryStage) {
+    public RegisterView() {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -64,8 +64,7 @@ public class RegisterView implements View {
         grid.add(hbBtn, 1, 4);
 
         btn.setOnMouseClicked(event -> fireUserCreatedEvent());
-        Scene scene = new Scene(grid, Config.windowWidth, Config.windowHeight);
-        this.scene = scene;
+        scene = new Scene(grid, Config.windowWidth, Config.windowHeight);
     }
 
     public void setUserCreatedListener(UserCreatedListener userCreatedListener) {
