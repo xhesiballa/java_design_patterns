@@ -13,7 +13,7 @@ public abstract class DAOFactory {
             case MYSQL:
                 return new MySqlDAOFactory();
             default:
-                return null;
+                return new H2DAOFactory();
         }
     }
 }

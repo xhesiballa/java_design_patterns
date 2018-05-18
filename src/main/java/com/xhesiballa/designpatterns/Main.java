@@ -1,12 +1,10 @@
 package com.xhesiballa.designpatterns;
 
 import com.xhesiballa.designpatterns.bootstrap.Bootstrap;
-import com.xhesiballa.designpatterns.controller.Controller;
-import com.xhesiballa.designpatterns.controller.UserController;
-import com.xhesiballa.designpatterns.model.Model;
-import com.xhesiballa.designpatterns.view.RegisterView;
-import com.xhesiballa.designpatterns.view.View;
+import com.xhesiballa.designpatterns.service.ViewManagerService;
+import com.xhesiballa.designpatterns.view.LoginView;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -21,15 +19,16 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Bootstrap.performBootstrapping();
-        Model model = new Model();
+        ViewManagerService viewManagerService = new ViewManagerService(primaryStage);
 
-        View view = new View(model, primaryStage);
-        RegisterView registerView = new RegisterView(model, primaryStage);
+        LoginView loginView = new LoginView();
 
-        Controller controller = new Controller(model, view);
-        UserController userController = new UserController();
+        viewManagerService.registerView(loginView);
+        viewManagerService.showView(loginView.getClass());
 
-        view.setHelloWorldListener(controller);
-        registerView.setUserCreatedListener(userController);
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 }

@@ -94,6 +94,17 @@ public class UserDAOTest {
         assertEquals(users.size(), 0);
     }
 
+    @Test
+    public void getUserByUserName() {
+        User user = new User();
+        user.setUserName("first_user");
+        userDAO.createUser(user);
+
+        User savedUser = userDAO.getUserByUserName("first_user");
+
+        assertEquals(user, savedUser);
+    }
+
     @AfterClass
     public static void disconnect() {
         try {

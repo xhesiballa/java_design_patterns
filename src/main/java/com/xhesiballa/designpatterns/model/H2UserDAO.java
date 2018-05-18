@@ -127,6 +127,23 @@ public class H2UserDAO implements UserDAO {
         }
     }
 
+    @Override
+    public User getUserByUserName(String userName) {
+        try {
+            Connection connection = Database.getInstance().getConnection();
+            String query = "SELECT * FROM USERS WHERE username= ?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSetTOUser(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private User resultSetTOUser(ResultSet resultSet) {
         User user = null;
         try {

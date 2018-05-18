@@ -1,5 +1,7 @@
 package com.xhesiballa.designpatterns.model;
 
+import java.util.Objects;
+
 /**
  * @author Xhesi Balla
  */
@@ -62,7 +64,17 @@ public class User {
     }
 
     @Override
-    protected User clone(){
-        return  new User(id, userName, email, password);
+    protected User clone() {
+        return new User(id, userName, email, password);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getUserName(), user.getUserName()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
+                Objects.equals(getPassword(), user.getPassword());
     }
 }

@@ -32,4 +32,9 @@ public class MySqlUserDAO implements UserDAO {
     public void deleteUsers() {
 
     }
+
+    @Override
+    public User getUserByUserName(String userName) {
+        return null;
+    }
 }
