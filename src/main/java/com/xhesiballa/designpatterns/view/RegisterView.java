@@ -1,5 +1,6 @@
 package com.xhesiballa.designpatterns.view;
 
+import com.xhesiballa.designpatterns.config.Config;
 import com.xhesiballa.designpatterns.model.Model;
 import com.xhesiballa.designpatterns.model.User;
 import javafx.geometry.Insets;
@@ -19,9 +20,8 @@ import javafx.stage.Stage;
 /**
  * @author Xhesi Balla
  */
-public class RegisterView {
-    private Model mode;
-    private Stage primaryStage;
+public class RegisterView implements View {
+    private final Scene scene;
     private UserCreatedListener userCreatedListener;
 
     private TextField userTextField;
@@ -29,9 +29,6 @@ public class RegisterView {
     private PasswordField pwBox;
 
     public RegisterView(Model mode, Stage primaryStage) {
-        this.mode = mode;
-        this.primaryStage = primaryStage;
-
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -67,9 +64,8 @@ public class RegisterView {
         grid.add(hbBtn, 1, 4);
 
         btn.setOnMouseClicked(event -> fireUserCreatedEvent());
-        Scene scene = new Scene(grid, 480, 360);
-        this.primaryStage.setScene(scene);
-        this.primaryStage.show();
+        Scene scene = new Scene(grid, Config.windowWidth, Config.windowHeight);
+        this.scene = scene;
     }
 
     public void setUserCreatedListener(UserCreatedListener userCreatedListener) {
@@ -80,9 +76,14 @@ public class RegisterView {
         if (userCreatedListener != null) {
             User user = new User();
             user.setUserName(userTextField.getText());
-            user.setEmail( emailTextField.getText());
+            user.setEmail(emailTextField.getText());
             user.setPassword(pwBox.getText());
             userCreatedListener.onUserCreated(user);
         }
+    }
+
+    @Override
+    public Scene getScene() {
+        return scene;
     }
 }
