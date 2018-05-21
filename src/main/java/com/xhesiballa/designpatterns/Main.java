@@ -1,6 +1,7 @@
 package com.xhesiballa.designpatterns;
 
 import com.xhesiballa.designpatterns.bootstrap.Bootstrap;
+import com.xhesiballa.designpatterns.controller.LoginController;
 import com.xhesiballa.designpatterns.controller.RegisterController;
 import com.xhesiballa.designpatterns.service.ViewManagerService;
 import com.xhesiballa.designpatterns.view.LoginView;
@@ -23,15 +24,19 @@ public class Main extends Application {
         Bootstrap.performBootstrapping();
         ViewManagerService viewManagerService = ViewManagerService.initialise(primaryStage);
 
-        RegisterController registerController = new RegisterController();
 
         LoginView loginView = new LoginView();
+        LoginController loginController = new LoginController(loginView);
+        loginView.setChangeViewListener(loginController)
+                .setLoginAttemptedListener(loginController);
+        viewManagerService.registerView(loginView);
 
+
+        RegisterController registerController = new RegisterController();
         RegisterView registerView = new RegisterView();
         registerView.setUserCreatedListener(registerController);
-
-        viewManagerService.registerView(loginView);
         viewManagerService.registerView(registerView);
+
 
         viewManagerService.showView(registerView.getClass());
 

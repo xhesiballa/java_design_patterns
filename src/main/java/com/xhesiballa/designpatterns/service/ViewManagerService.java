@@ -39,6 +39,7 @@ public class ViewManagerService {
         Optional<View> viewOptional = viewSet.stream().filter(v -> v.getClass().equals(viewClass)).findFirst();
         if (viewOptional.isPresent()) {
             View currentView = viewOptional.get();
+            currentView.restoreView();
             stage.setScene(currentView.getScene());
             stage.show();
         } else {

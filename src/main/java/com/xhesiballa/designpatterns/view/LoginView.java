@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -21,6 +22,7 @@ import javafx.scene.text.Text;
 public class LoginView implements View {
     private final Scene scene;
     private final TextField userTextField;
+    private Label errorLabel;
     private final PasswordField pwBox;
     private LoginAttemptedListener loginAttemptedListener;
     private ChangeViewListener changeViewListener;
@@ -48,34 +50,48 @@ public class LoginView implements View {
         pwBox = new PasswordField();
         grid.add(pwBox, 1, 2);
 
+        errorLabel = new Label();
+        errorLabel.setVisible(false);
+        errorLabel.setTextFill(Color.RED);
+        grid.add(errorLabel, 1, 3);
+
         Button registerButton = new Button("Register");
         HBox hbBtnRegister = new HBox(10);
         hbBtnRegister.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtnRegister.getChildren().add(registerButton);
-        grid.add(hbBtnRegister, 0, 3);
+        grid.add(hbBtnRegister, 0, 4);
         registerButton.setOnMouseClicked(event -> fireChangeViewEvent());
 
         Button loginButton = new Button("Login");
         HBox hbBtnLogin = new HBox(10);
         hbBtnLogin.setAlignment(Pos.BOTTOM_LEFT);
         hbBtnLogin.getChildren().add(loginButton);
-        grid.add(hbBtnLogin, 1, 3);
+        grid.add(hbBtnLogin, 1, 4);
         loginButton.setOnMouseClicked(event -> fireLoginAttemptedEvent());
 
         scene = new Scene(grid, Config.windowWidth, Config.windowHeight);
     }
 
-    public void setLoginAttemptedListener(LoginAttemptedListener loginAttemptedListener) {
+    public LoginView setLoginAttemptedListener(LoginAttemptedListener loginAttemptedListener) {
         this.loginAttemptedListener = loginAttemptedListener;
+        return this;
     }
 
-    public void setChangeViewListener(ChangeViewListener changeViewListener) {
+    public LoginView setChangeViewListener(ChangeViewListener changeViewListener) {
         this.changeViewListener = changeViewListener;
+        return this;
     }
 
     @Override
     public Scene getScene() {
         return scene;
+    }
+
+    @Override
+    public void restoreView() {
+        userTextField.setText("");
+        pwBox.setText("");
+        hideErrorMessage();
     }
 
     private void fireChangeViewEvent() {
@@ -91,5 +107,14 @@ public class LoginView implements View {
             user.setPassword(pwBox.getText());
             loginAttemptedListener.login(user);
         }
+    }
+
+    public void showErrorMessage(String messageText) {
+        errorLabel.setText(messageText);
+        errorLabel.setVisible(true);
+    }
+
+    public void hideErrorMessage() {
+        errorLabel.setVisible(false);
     }
 }

@@ -85,4 +85,11 @@ public class RegisterView implements View {
     public Scene getScene() {
         return scene;
     }
+
+    @Override
+    public void restoreView() {
+        userTextField.setText("");
+        emailTextField.setText("");
+        pwBox.setText("");
+    }
 }
